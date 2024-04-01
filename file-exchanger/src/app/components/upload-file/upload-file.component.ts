@@ -75,40 +75,6 @@ export class UploadFileComponent {
   }
 
 
-  // uploadFile(currentFile: File): void {
-  //   if (currentFile) {
-  //     this.isUploading = true;
-  //     this.fileUploadService.uploadFile(currentFile, this.password)
-  //       .pipe(
-  //         catchError(error => {
-  //           console.error("Error uploading file:", error);
-  //           this.isUploading = false;
-  //           return of(null);
-  //         }),
-  //         map(response => {
-            
-  //           if (response && response.message) {
-  //             return [currentFile.name, response.message] as [string, string]; // Create tuple with file name and response message
-
-  //           } else {
-  //             console.error("Invalid response format:", response);
-  //             return null;
-  //           }
-  //         })
-  //       )
-  //       .subscribe(data => {
-  //         if (data) {
-  //           this.uploadData.push(data); // Push tuple to array
-  //         }
-  //         this.selectedFiles = [];
-  //         this.isUploading = false;
-  //         console.log(data);
-  //       });
-  //   }
-  // }
-  uploadData1: { fileName: string, response: string }[] = [];
-  uploadProgress1: { [key: string]: { status: string, message: number } } = {};
-
   uploadFile(currentFile: File): void {
     if (currentFile) {
       this.isUploading = true;
@@ -119,28 +85,62 @@ export class UploadFileComponent {
             this.isUploading = false;
             return of(null);
           }),
-          map(event => {
-            if (event.type === HttpEventType.UploadProgress) {
-              // Handle upload progress
-              const progress = Math.round((100 * event.loaded) / event.total);
-              this.uploadProgress1[currentFile.name] = { status: 'progress', message: progress };
-            } else if (event instanceof HttpResponse) {
-              // Handle response from backend
-              if (event.body && event.body.message) {
-                this.uploadData1.push({ fileName: currentFile.name, response: event.body.message });
-              } else {
-                console.error("Invalid response format:", event.body);
-              }
+          map(response => {
+            
+            if (response && response.message) {
+              return [currentFile.name, response.message] as [string, string]; // Create tuple with file name and response message
+
             } else {
-              console.error("Unhandled event type:", event);
+              console.error("Invalid response format:", response);
+              return null;
             }
-            return event;
           })
         )
-        .subscribe(() => {
-          this.selectedFiles = [];
+        .subscribe(data => {
+          if (data) {
+            this.uploadData.push(data); // Push tuple to array
+          }
+          
           this.isUploading = false;
+          console.log(data);
         });
     }
   }
+  uploadData1: { fileName: string, response: string }[] = [];
+  uploadProgress1: { [key: string]: { status: string, message: number } } = {};
+
+  // uploadFile(currentFile: File): void {
+  //   if (currentFile) {
+  //     this.isUploading = true;
+  //     this.fileUploadService.uploadFile(currentFile, this.password)
+  //       .pipe(
+  //         catchError(error => {
+  //           console.error("Error uploading file:", error);
+  //           this.isUploading = false;
+  //           return of(null);
+  //         }),
+  //         map(event => {
+  //           if (event.type === HttpEventType.UploadProgress) {
+  //             // Handle upload progress
+  //             const progress = Math.round((100 * event.loaded) / event.total);
+  //             this.uploadProgress1[currentFile.name] = { status: 'progress', message: progress };
+  //           } else if (event instanceof HttpResponse) {
+  //             // Handle response from backend
+  //             if (event.body && event.body.message) {
+  //               this.uploadData1.push({ fileName: currentFile.name, response: event.body.message });
+  //             } else {
+  //               console.error("Invalid response format:", event.body);
+  //             }
+  //           } else {
+  //             console.error("Unhandled event type:", event);
+  //           }
+  //           return event;
+  //         })
+  //       )
+  //       .subscribe(() => {
+  //         this.selectedFiles = [];
+  //         this.isUploading = false;
+  //       });
+  //   }
+  // }
 }
