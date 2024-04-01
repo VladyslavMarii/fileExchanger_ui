@@ -11,7 +11,9 @@
             <p>Selected Files:</p>
             <ul>
                 <li *ngFor="let file of selectedFiles">
-                  {{ file.name }}</li>
+                  {{ file.name }}
+                  <progress max="100" [value]="uploadProgress[file.name]?.message"></progress>
+                </li>
             </ul>
         </div>
       </div>
@@ -23,7 +25,6 @@
     <br>
    
     <div *ngFor="let data of uploadData">
-      
       <p>
         To download file: 
         <span class="green-text">{{ data[0] }}</span>

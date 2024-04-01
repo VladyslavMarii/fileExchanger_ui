@@ -1,12 +1,13 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpEventType, HttpHeaderResponse, HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { catchError, map, of } from 'rxjs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { catchError, last, map, of, tap } from 'rxjs';
 import { FileService } from 'src/app/service/file.service';
 
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
-  styleUrls: ['./upload-file.component.css']
+  styleUrls: ['./upload-file.component.css'],
 })
 export class UploadFileComponent {
   error: string;
@@ -19,7 +20,8 @@ export class UploadFileComponent {
     this.setupDragDropListeners();
   }
 
-  uploadProgress: { [fileName: string]: { status: string, message: number } } = {};
+  uploadProgress: { [fileName: string]: { status: string, message: string | number } } = {};
+
 
   
   setupDragDropListeners(): void {
@@ -75,7 +77,12 @@ export class UploadFileComponent {
   }
 
 
+
+
   uploadFile(currentFile: File): void {
+    // if(this.uploadProgress[currentFile.name].message=100){
+
+    // }
     if (currentFile) {
       this.isUploading = true;
       this.fileUploadService.uploadFile(currentFile, this.password)
@@ -85,62 +92,40 @@ export class UploadFileComponent {
             this.isUploading = false;
             return of(null);
           }),
-          map(response => {
-            
-            if (response && response.message) {
-              return [currentFile.name, response.message] as [string, string]; // Create tuple with file name and response message
-
-            } else {
-              console.error("Invalid response format:", response);
-              return null;
-            }
-          })
-        )
-        .subscribe(data => {
-          if (data) {
-            this.uploadData.push(data); // Push tuple to array
-          }
+          tap(event => {
+            if (event.type === 0) {
+              console.log('Request started');
+              // Handle request start event
+            } else if (event.type === 1) {
+              console.log('Upload progress:', event.loaded, '/', event.total);
+              // Handle upload progress event
+              const progress = Math.round((90 * event.loaded) / event.total);
+              this.uploadProgress[currentFile.name] = { status: 'progress', message: progress };
+              console.log(progress)
+            } else if (event instanceof HttpResponse) {
+              console.log('Response received:', event);
+              // Handle response event
+              if (event.body && event.body.message) {
+                this.uploadData.push([currentFile.name, event.body.message]);
+              } else {
+                console.error("Invalid response format:", event.body);
+              }
+            } 
+          }),
           
-          this.isUploading = false;
-          console.log(data);
-        });
+        )
+        .subscribe(
+          () => {},
+          (error) => {
+            console.error("Error uploading file:", error);
+            this.isUploading = false;
+          },
+          () => {
+            this.uploadProgress[currentFile.name] = { status: 'progress', message: 100 };
+            this.isUploading = false; // Set uploading status to false when the observable completes
+          }
+        );
     }
   }
-  uploadData1: { fileName: string, response: string }[] = [];
-  uploadProgress1: { [key: string]: { status: string, message: number } } = {};
-
-  // uploadFile(currentFile: File): void {
-  //   if (currentFile) {
-  //     this.isUploading = true;
-  //     this.fileUploadService.uploadFile(currentFile, this.password)
-  //       .pipe(
-  //         catchError(error => {
-  //           console.error("Error uploading file:", error);
-  //           this.isUploading = false;
-  //           return of(null);
-  //         }),
-  //         map(event => {
-  //           if (event.type === HttpEventType.UploadProgress) {
-  //             // Handle upload progress
-  //             const progress = Math.round((100 * event.loaded) / event.total);
-  //             this.uploadProgress1[currentFile.name] = { status: 'progress', message: progress };
-  //           } else if (event instanceof HttpResponse) {
-  //             // Handle response from backend
-  //             if (event.body && event.body.message) {
-  //               this.uploadData1.push({ fileName: currentFile.name, response: event.body.message });
-  //             } else {
-  //               console.error("Invalid response format:", event.body);
-  //             }
-  //           } else {
-  //             console.error("Unhandled event type:", event);
-  //           }
-  //           return event;
-  //         })
-  //       )
-  //       .subscribe(() => {
-  //         this.selectedFiles = [];
-  //         this.isUploading = false;
-  //       });
-  //   }
-  // }
+  
 }
