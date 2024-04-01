@@ -1,0 +1,32 @@
+    <div>
+      <input type="file" #fileInput style="display: none;" multiple (change)="onFileSelected($event)" required>
+      <input name="password" [(ngModel)]="password" type="password" placeholder="Enter password">
+      <div class="drag-area"
+           (click)="fileInput.click()"
+           (dragover)="handleDragOver($event)"
+           (dragleave)="handleDragLeave($event)"
+           (drop)="handleDrop($event)">
+           <p *ngIf="selectedFiles.length === 0">Drag &amp; Drop files here or click to browse</p>
+           <div *ngIf="selectedFiles.length > 0">
+            <p>Selected Files:</p>
+            <ul>
+                <li *ngFor="let file of selectedFiles">
+                  {{ file.name }}</li>
+            </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="loader" *ngIf="isUploading"></div>
+    <div class="error" *ngIf="error">{{ error }}</div>
+    <button (click)="uploadFiles()" [disabled]="isUploading">Upload</button> 
+    <br>
+   
+    <div *ngFor="let data of uploadData">
+      
+      <p>
+        To download file: 
+        <span class="green-text">{{ data[0] }}</span>
+        use key below
+      </p>
+            <h4>{{data[1]}}</h4>

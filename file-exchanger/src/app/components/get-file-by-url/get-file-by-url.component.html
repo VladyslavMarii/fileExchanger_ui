@@ -1,0 +1,12 @@
+<div *ngIf="isPresent">
+    <p>File Name: {{ fileInfo.fileName }}</p>
+    <p>File Size: {{ fileInfo.fileSize }}</p>
+    <input name="password" [(ngModel)]="password" type="text" placeholder="Enter password">
+    <button (click)="download()">Download</button>
+</div>
+
+<div *ngIf="!isPresent">
+    Wrong path
+</div>
+  
+  
