@@ -1,4 +1,4 @@
-    <div>
+    <!-- <div>
       <input type="file" #fileInput style="display: none;" multiple (change)="onFileSelected($event)" required>
       <input name="password" [(ngModel)]="password" type="password" placeholder="Enter password">
       <div class="drag-area"
@@ -30,4 +30,71 @@
         <span class="green-text">{{ data[0] }}</span>
         use key below
       </p>
-            <h4>{{data[1]}}</h4>
+            <h4>{{data[1]}}</h4> -->
+
+<div class="container">
+  <div class="header">
+    <div class="logo">
+      File Exchanger
+    </div>
+    <div></div>
+    <p>Add password</p>
+      <label class="switch">
+        <input type="checkbox" (change)="togglePasswordVisibility()">
+        <span class="slider"></span>
+      </label>   
+  </div>
+  <div class="file-body">
+    <div *ngIf="showPasswordVisibility()" class="password">
+      <input name="password" [(ngModel)]="password" [type]="isPasswordVisible ? 'text' : 'password'" placeholder="Enter password">
+      <div class="password-checkbox">
+        <p>Show my password</p>
+        <label class="switch">
+          <input type="checkbox" (change)="changePasswordInputVisibleState()">
+          <span class="slider"></span>
+        </label>    
+        
+
+      </div>
+         
+    </div>
+    <div>
+      <div class="input-area">
+        <input type="file" #fileInput style="display: none;" multiple (change)="onFileSelected($event)" required>
+        <div class="drag-area"
+             (click)="fileInput.click()"
+             (dragover)="handleDragOver($event)"
+             (dragleave)="handleDragLeave($event)"
+             (drop)="handleDrop($event)">
+             <p *ngIf="selectedFiles.length === 0">Drag &amp; Drop files here or click to browse</p>
+             <div class="drag-area-inner" id="style-1" *ngIf="selectedFiles.length > 0">
+              <p>Selected Files:</p>
+              <ul>
+                  <li *ngFor="let file of selectedFiles">
+                    {{ file.name }}
+                    <progress max="100" [value]="uploadProgress[file.name]?.message"></progress>
+                  </li>
+              </ul>
+          </div>
+      </div>
+    </div>
+    <div class="file-input-send">
+      <!-- <div>
+              <p>Files will be automatically deleted after 24 hours from the moment of uploading.</p>
+      </div> -->
+      <button *ngIf="!isUploading" (click)="uploadFiles()" [disabled]="isUploading">Upload</button>
+      <div class="loader" *ngIf="isUploading"></div> 
+    </div>    
+  </div>
+  
+  
+</div>
+<div>
+  <div *ngFor="let data of uploadData">
+    <p>
+      To download file: 
+      <span class="green-text">{{ data[0] }}</span>
+      use key below
+    </p>
+          <h4>{{data[1]}}</h4> 
+</div>

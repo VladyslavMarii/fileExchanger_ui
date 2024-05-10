@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-white-color: #FFFFFF;
+  --bg-primary-color:#2C2D34;
+  --bg-secondary-color:#2E333E;
+  --bg-tertiary-color:#5A5D64;
+  --bg-blue-color:#2196F3;
+  --bg-button-blue-hover-color:#42A5F5;
+  --bg-gray-color:#ccc;
+
+  --text-secondary-color: #565D65;
+}
+body {
+  background-color: #18181C; /* Replace #ffffff with your desired color */
+ 
+}
+  

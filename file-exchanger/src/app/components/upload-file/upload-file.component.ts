@@ -15,14 +15,27 @@ export class UploadFileComponent {
   password: string = '';
   uploadData: [string, string][] = [];
   isUploading: boolean = false;
+  passwrodVisibility: boolean = false;
+  isPasswordVisible: boolean = false;
 
   constructor(private fileUploadService: FileService) {
     this.setupDragDropListeners();
   }
-
+ 
   uploadProgress: { [fileName: string]: { status: string, message: string | number } } = {};
-
-
+  togglePasswordVisibility() {
+    this.passwrodVisibility = !this.passwrodVisibility;
+    if(!this.passwrodVisibility){
+      this.isPasswordVisible=false;
+      this.password='';
+    }
+  }
+  changePasswordInputVisibleState(){
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+  showPasswordVisibility():boolean{
+    return this.passwrodVisibility;
+  }
   
   setupDragDropListeners(): void {
     document.addEventListener('dragover', (event) => {
