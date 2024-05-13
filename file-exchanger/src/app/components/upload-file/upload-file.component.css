@@ -240,6 +240,9 @@ justify-content: center;
   width: 80px;
   height: 80px;
 }
+/* .static-content-key img:hover{
+  content: url('C:/Users/XPS/Documents/KNU/6/Курсач/fileExchangerFront/file-exchanger/src/assets/key_hover.png');
+} */
 .static-content-key p{
   color: var(--bg-gray-color);
   margin-top:10px;

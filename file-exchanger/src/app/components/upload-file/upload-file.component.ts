@@ -1,5 +1,5 @@
 import { HttpEventType, HttpHeaderResponse, HttpResponse } from '@angular/common/http';
-import { Component, ElementRef, HostListener, ViewChild} from '@angular/core';
+import { Component} from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { catchError, last, map, of, tap } from 'rxjs';
 import { FileService } from 'src/app/service/file.service';

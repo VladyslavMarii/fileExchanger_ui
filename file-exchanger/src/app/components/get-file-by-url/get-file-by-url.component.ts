@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from 'src/app/service/file.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -10,12 +12,17 @@ import { FileService } from 'src/app/service/file.service';
 })
 export class GetFileByUrlComponent {
 
+
   fileInfo: { fileName: string, fileSize: string};
   isPresent: boolean =true;
   password: string;
 
-  constructor(private route: ActivatedRoute, private fileService: FileService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private fileService: FileService) { }
 
+  goHome() {
+    this.router.navigateByUrl('/');
+    window.history.replaceState({}, document.title, window.location.href);
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const fileUrl = params.get('fileUrl');

@@ -1,12 +1,16 @@
-<div *ngIf="isPresent">
-    <p>File Name: {{ fileInfo.fileName }}</p>
-    <p>File Size: {{ fileInfo.fileSize }}</p>
-    <input name="password" [(ngModel)]="password" type="text" placeholder="Enter password">
-    <button (click)="download()">Download</button>
+<div class="container">
+    <div  *ngIf="isPresent">
+        <p>File Name: {{ fileInfo.fileName }}</p>
+        <p>File Size: {{ fileInfo.fileSize }}</p>
+        <input name="password" [(ngModel)]="password" type="text" placeholder="Enter password">
+        <button (click)="download()">Download</button>
+    </div>
+    <div class="file-not-exist" *ngIf="!isPresent">
+        <p>Wrong path or file already deleted from server</p> 
+        <button (click)="goHome()">Home</button>
+    </div>
 </div>
 
-<div *ngIf="!isPresent">
-    Wrong path
-</div>
+
   
   
