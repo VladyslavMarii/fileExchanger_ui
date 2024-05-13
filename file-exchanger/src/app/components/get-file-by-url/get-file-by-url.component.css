@@ -13,11 +13,22 @@
     overflow-y: auto; 
     overflow-x: hidden;
 }
+/* file not exist */
 .file-not-exist{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+.file-not-exist h3{
+    color: var(--bg-white-color);
+    margin-top: 10px;
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    align-items: center;
+}
+.file-not-exist h3:hover{
+    color: var(--bg-blue-color);
 }
 .file-not-exist p{
     color: var(--text-red-color);
@@ -26,5 +37,87 @@
 }
 .file-not-exist img{
     width: 80px;
-    height: 80px;;
+    height: 80px;
+}
+/* file found */
+.file-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+/* info */
+.file-found-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.file-found-info input{
+    background-color: var(--bg-primary-color);
+  padding: 10px;
+  width: 100%;
+  border: 1px solid var(--bg-white-color);
+  border-radius: 5px;
+  color: var(--bg-white-color);
+  transition-duration: 500ms;
+}
+
+.file-found-info input:focus{
+    border: 1px solid var(--bg-blue-color);
+    outline: none;
+    transition-duration: 500ms;
+}
+.file-found-info img{
+    width: 140px;
+    height: 140px;
+}
+.file-found-info p{
+    color:var(--bg-blue-color)
+}
+.file-found-info span{
+    color:var(--bg-white-color)
+}
+
+/* download */
+.file-found-download{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.file-found-download img{
+    width: 80px;
+    height: 80px;
+}
+.file-found-download h3{
+    color: var(--bg-white-color);
+    margin-top: 10px;
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.file-found-download h3:hover{
+    color: var(--bg-blue-color);
+}
+/* HOME */
+.home{
+    display: flex;
+    justify-content:first baseline;
+    align-items: flex-start;
+    flex-direction: row;
+}
+.home img{
+    width: 40px;
+    height: 40px;
+}
+.home h3{
+    color: var(--bg-white-color);
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.home h3:hover{
+    color: var(--bg-blue-color);
 }

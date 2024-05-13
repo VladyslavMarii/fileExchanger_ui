@@ -11,10 +11,12 @@ import { Router } from '@angular/router';
   styleUrl: './get-file-by-url.component.css'
 })
 export class GetFileByUrlComponent {
-  fileInfo: { fileName: string, fileSize: string};
+  fileInfo: { fileName: string, fileSize: number, filePassword:boolean};
   isPresent: boolean =true;
   password: string;
   hovered: boolean = false;
+  hoveredHome:boolean = false;
+  isPassword: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private fileService: FileService) { }
 
@@ -27,6 +29,7 @@ export class GetFileByUrlComponent {
       if (fileUrl) {
         this.fileService.getFileInfo(fileUrl).subscribe(response => {
           this.fileInfo = response;
+          this.isPassword = this.fileInfo.filePassword;
           this.isPresent = true;
         });
       }
@@ -49,5 +52,12 @@ export class GetFileByUrlComponent {
         });
       }
     });
+  }
+  formatFileSize(bytes: number): string {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 }

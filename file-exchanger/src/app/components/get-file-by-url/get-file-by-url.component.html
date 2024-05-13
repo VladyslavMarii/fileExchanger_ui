@@ -1,13 +1,30 @@
 <div class="container">
     <div  *ngIf="isPresent">
-        <p>File Name: {{ fileInfo.fileName }}</p>
-        <p>File Size: {{ fileInfo.fileSize }}</p>
-        <input name="password" [(ngModel)]="password" type="text" placeholder="Enter password">
-        <button (click)="download()">Download</button>
+        <div class="home">
+            <img (click)="goHome()" (mouseenter)="hoveredHome = true" (mouseleave)="hoveredHome = false" [src]="hoveredHome ? 'assets/home_hover.png' : 'assets/home.png'" alt="Go home">
+            <h3 (click)="goHome()">Home</h3>
+        </div>
+        
+        <div class="file-found">
+            <div class="file-found-info">
+                <img  src="assets/file.png">
+                <p>File Name: <span>{{ fileInfo.fileName }}</span></p>
+                <p>File Size: <span>{{ formatFileSize(fileInfo.fileSize) }}</span></p>
+                <input *ngIf="isPassword" name="password" [(ngModel)]="password" type="text" placeholder="Enter password">
+            </div>
+            <div class="file-found-download">
+                <img (click)="download()" (mouseenter)="hovered = true" (mouseleave)="hovered = false" [src]="hovered ? 'assets/download_hover.png' : 'assets/download.png'" alt="Download">
+                <h3 (click)="download()">Download</h3>
+            </div>
+            
+
+        </div>
     </div>
     <div class="file-not-exist" *ngIf="!isPresent">
         <p>Wrong path or file already deleted from server</p> 
-        <img (click)="goHome()" (mouseenter)="hovered = true" (mouseleave)="hovered = false" [src]="hovered ? 'assets/home_hover.png' : 'assets/home.png'" alt="Go home">
+            <img (click)="goHome()" (mouseenter)="hovered = true" (mouseleave)="hovered = false" [src]="hovered ? 'assets/home_hover.png' : 'assets/home.png'" alt="Go home">
+            <h3 (click)="goHome()">Home</h3>
+        
     </div>
 </div>
 
