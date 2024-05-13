@@ -7,7 +7,7 @@
     </div>
     <div class="file-not-exist" *ngIf="!isPresent">
         <p>Wrong path or file already deleted from server</p> 
-        <button (click)="goHome()">Home</button>
+        <img (click)="goHome()" (mouseenter)="hovered = true" (mouseleave)="hovered = false" [src]="hovered ? 'assets/home_hover.png' : 'assets/home.png'" alt="Go home">
     </div>
 </div>
 

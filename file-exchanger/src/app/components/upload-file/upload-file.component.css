@@ -203,7 +203,7 @@ justify-content: center;
 
 }
 .file-input-send button:hover{
-  color: var(--bg-gray-color);
+  color: var(--bg-white-color);
   background-color: var( --bg-button-blue-hover-color);
   transition-duration: 500ms;
 }

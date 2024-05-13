@@ -64,7 +64,7 @@
 <div class="download-info">
   <div  class="static-content">
     <div class="static-content-key">
-      <img (click)="redirectToAnotherPage()" src="assets/key.png" alt="Description of the image">
+      <img (click)="redirectToAnotherPage()" (mouseenter)="hovered = true" (mouseleave)="hovered = false" [src]="hovered ? 'assets/key_hover.png' : 'assets/key.png'" alt="Download">
       <p (click)="redirectToAnotherPage()">Download file</p>
       <input type="text" [(ngModel)]="downloadInputValue" placeholder="Key: http://localhost:4200/download/xxxx">
     </div>

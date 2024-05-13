@@ -24,18 +24,7 @@
     font-size: 45px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.file-not-exist button{
-    width: 100%;
-    font-size: 30px;
-    color: var(--bg-gray-color);
-    background-color: var(--text-red-color);
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    border: 1px solid var(--bg-white-color);
-    border-radius: 8px;
-    transition-duration: 500ms;
+.file-not-exist img{
+    width: 80px;
+    height: 80px;;
 }
-.file-not-exist button:hover{
-    color: var(--bg-gray-color);
-    background-color: var( --text-purple-color);
-    transition-duration: 500ms;
-  }

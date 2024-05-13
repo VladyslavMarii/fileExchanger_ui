@@ -4,6 +4,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { catchError, last, map, of, tap } from 'rxjs';
 import { FileService } from 'src/app/service/file.service';
 import {Clipboard} from '@angular/cdk/clipboard';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
@@ -18,8 +19,9 @@ export class UploadFileComponent {
   passwrodVisibility: boolean = false;
   isPasswordVisible: boolean = false;
   downloadInputValue: string = '';
+  hovered: boolean = false;
 
-  constructor(private fileUploadService: FileService, private clipboard: Clipboard) {
+  constructor(private fileUploadService: FileService, private router: Router, private clipboard: Clipboard) {
     this.setupDragDropListeners();
   }
   uploadProgress: { [fileName: string]: { status: string, message: string | number } } = {};
@@ -34,7 +36,7 @@ export class UploadFileComponent {
 
   redirectToAnotherPage() {
     if(this.downloadInputValue != ''){
-      window.location.href = 'http://localhost:4200/download/' + this.downloadInputValue;
+      this.router.navigateByUrl('/download/'+this.downloadInputValue);
     }
   }
   changePasswordInputVisibleState(){

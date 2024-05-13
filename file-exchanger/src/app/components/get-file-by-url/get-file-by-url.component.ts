@@ -11,17 +11,15 @@ import { Router } from '@angular/router';
   styleUrl: './get-file-by-url.component.css'
 })
 export class GetFileByUrlComponent {
-
-
   fileInfo: { fileName: string, fileSize: string};
   isPresent: boolean =true;
   password: string;
+  hovered: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private fileService: FileService) { }
 
   goHome() {
     this.router.navigateByUrl('/');
-    window.history.replaceState({}, document.title, window.location.href);
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
