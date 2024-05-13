@@ -1,9 +1,9 @@
 import { HttpEventType, HttpHeaderResponse, HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { catchError, last, map, of, tap } from 'rxjs';
 import { FileService } from 'src/app/service/file.service';
-
+import {Clipboard} from '@angular/cdk/clipboard';
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
@@ -17,17 +17,24 @@ export class UploadFileComponent {
   isUploading: boolean = false;
   passwrodVisibility: boolean = false;
   isPasswordVisible: boolean = false;
+  downloadInputValue: string = '';
 
-  constructor(private fileUploadService: FileService) {
+  constructor(private fileUploadService: FileService, private clipboard: Clipboard) {
     this.setupDragDropListeners();
   }
- 
   uploadProgress: { [fileName: string]: { status: string, message: string | number } } = {};
   togglePasswordVisibility() {
     this.passwrodVisibility = !this.passwrodVisibility;
     if(!this.passwrodVisibility){
       this.isPasswordVisible=false;
       this.password='';
+    }
+  }
+
+
+  redirectToAnotherPage() {
+    if(this.downloadInputValue != ''){
+      window.location.href = 'http://localhost:4200/download/' + this.downloadInputValue;
     }
   }
   changePasswordInputVisibleState(){
@@ -140,5 +147,7 @@ export class UploadFileComponent {
         );
     }
   }
-  
+  copyToClipboard(text: string): void {
+    this.clipboard.copy(text);
+  }
 }

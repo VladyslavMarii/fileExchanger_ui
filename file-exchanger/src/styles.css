@@ -9,6 +9,8 @@
   --bg-gray-color:#ccc;
 
   --text-secondary-color: #565D65;
+  --text-red-color:#A14463;
+  --text-purple-color:#884175;
 }
 body {
   background-color: #18181C; /* Replace #ffffff with your desired color */
