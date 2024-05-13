@@ -312,6 +312,10 @@ justify-content: center;
   color: var(--bg-gray-color);
   margin-right: 30%;
 }
+.overflow-content-copy label:active {
+  color: var(--bg-blue-color);
+  margin-right: 30%;
+}
 
 /* cloud */
 .loader {
