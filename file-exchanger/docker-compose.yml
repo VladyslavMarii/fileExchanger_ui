@@ -1,0 +1,9 @@
+services:
+  angular-app:
+    image: file-exchanger-front
+    container_name: file-exchanger-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
